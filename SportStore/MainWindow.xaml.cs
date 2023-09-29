@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SportStore.Models;
 
 namespace SportStore
 {
@@ -23,6 +24,11 @@ namespace SportStore
         public MainWindow()
         {
             InitializeComponent();
+            using(SportStoreContext db = new SportStoreContext())
+            {
+                User user = db.Users.FirstOrDefault();
+                MessageBox.Show($"{user.Name}");
+            }
         }
     }
 }

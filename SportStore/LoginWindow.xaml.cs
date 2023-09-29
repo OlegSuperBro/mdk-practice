@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SportStore.Infrastructure;
 
 namespace SportStore
 {
@@ -20,28 +21,68 @@ namespace SportStore
     /// </summary>
     public partial class LoginWindow : Window
     {
+        bool verify = true;
+        int verifyCheck = 0;
+
         public LoginWindow()
         {
             InitializeComponent();
+
+            captchaBlock.Visibility = Visibility.Collapsed;
+            captchaBox.Visibility = Visibility.Collapsed;
+
         }
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
             using (SportStoreContext db = new SportStoreContext())
             {
+
+                // проверка, если есть каптча
+                if (captchaBlock.Visibility == Visibility.Visible)
+                {
+                    if (captchaBlock.Text == captchaBox.Text)
+                    {
+                        verify = true;
+                    }
+                }
+
                 User user = db.Users.Where(u => u.Login == loginBox.Text && u.Password == passwordBox.Password).FirstOrDefault() as User;
 
                 // admin
-                if (user != null)
+                if (user != null && verify)
                 {
-                    new MainWindow().Show();
+                    new MainWindow(user).Show();
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Ошика входа. Возможно неверный логин или пароль");
+                    MessageBox.Show("Неуспешная авторизация");
+                    verifyCheck += 1;
+
+                    // captcha view
+                    captchaBox.Visibility = Visibility.Visible;
+                    captchaBlock.Visibility = Visibility.Visible;
+                    captchaBlock.Text = CaptchaBuilder.Refresh();
+                    verify = false;
+
+                    if (verifyCheck > 1)
+                    {
+                        disableButton();
+                        captchaBlock.Text = CaptchaBuilder.Refresh();
+                    }
                 }
             }
+        }
+
+        /// <summary>
+        /// Асинхронное выключение кнопки на 10 сек.
+        /// </summary>
+        async void disableButton()
+        {
+            loginButton.IsEnabled = false;
+            await Task.Delay(TimeSpan.FromSeconds(10));
+            loginButton.IsEnabled = true;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportStore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,8 +27,21 @@ namespace SportStore
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
-            new MainWindow().Show();
-            this.Close();
+            using (SportStoreContext db = new SportStoreContext())
+            {
+                User user = db.Users.Where(u => u.Login == loginBox.Text && u.Password == passwordBox.Password).FirstOrDefault() as User;
+
+                // admin
+                if (user != null)
+                {
+                    new MainWindow().Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Ошика входа. Возможно неверный логин или пароль");
+                }
+            }
         }
     }
 }

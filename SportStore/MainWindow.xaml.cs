@@ -24,9 +24,18 @@ namespace SportStore
         public MainWindow(User user)
         {
             InitializeComponent();
+
             using (SportStoreContext db = new SportStoreContext())
             {
-                MessageBox.Show($"{user.RoleNavigation.Name}: {user.Surname} {user.Name} {user.Patronymic}. \r\t");
+                if (user != null)
+                {
+                    MessageBox.Show($"{user.RoleNavigation.Name}: {user.Surname} {user.Name} {user.Patronymic}. \r\t");
+                }
+                else
+                {
+                    MessageBox.Show("Гость");
+                }
+
             }
         }
     }

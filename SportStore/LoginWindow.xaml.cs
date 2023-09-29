@@ -84,5 +84,11 @@ namespace SportStore
             await Task.Delay(TimeSpan.FromSeconds(10));
             loginButton.IsEnabled = true;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow(null).Show();
+            this.Close();
+        }
     }
 }

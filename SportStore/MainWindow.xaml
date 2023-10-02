@@ -44,12 +44,22 @@
             <StackPanel
                         Margin="1"
                         Grid.Column="1"
-                        VerticalAlignment="Center"
+                        VerticalAlignment="Top"
                         HorizontalAlignment="Left">
                 <TextBlock Margin="1" Text="Сортировка" Height="20" Width="100"/>
                 <ComboBox Margin="1" Name="sortUserComboBox" Height="20" Width="150" SelectionChanged="sortUserComboBox_SelectionChanged"/>
             </StackPanel>
 
+            <StackPanel
+                        Margin="1"
+                        Grid.Column="2"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Left">
+                <TextBlock Margin="1" Text="Фильтр" Height="20" Width="100"/>
+                <ComboBox Margin="1" Name="filterUserComboBox" Height="20" Width="150"     
+                          SelectionChanged="filterUserComboBox_SelectionChanged"/>
+            </StackPanel>
+            
             <StackPanel 
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right"

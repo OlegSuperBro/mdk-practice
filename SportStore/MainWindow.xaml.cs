@@ -45,53 +45,70 @@ namespace SportStore
                 filterList = db.Products.Select(u => u.Manufacturer).Distinct().ToList();
                 filterList.Insert(0, "Все производители");
                 filterUserComboBox.ItemsSource = filterList.ToList();
+                countProducts.Text = $"Количество: {db.Products.Count()}";
             }
-
         }
 
-        private void Exit_Button_Click(object sender, RoutedEventArgs e)
+        private void exitButtonClick(object sender, RoutedEventArgs e)
         {
             new LoginWindow().Show();
             this.Close();
         }
         private void sortUserComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            using (SportStoreContext db = new SportStoreContext())
-            {
-                if (sortUserComboBox.SelectedValue == "По убыванию цены")
-                {
-                    productlistView.ItemsSource = db.Products.OrderByDescending(u => u.Cost).ToList();
-                }
-
-                if (sortUserComboBox.SelectedValue == "По возрастанию цены")
-                {
-                    productlistView.ItemsSource = db.Products.OrderBy(u => u.Cost).ToList();
-                }
-            }
+            UpdateProducts();
         }
         private void filterUserComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            using (SportStoreContext db = new SportStoreContext())
-            {
-                if (db.Products.Select(u => u.Manufacturer).Distinct().ToList().Contains(filterUserComboBox.SelectedValue))
-                {
-                    productlistView.ItemsSource = db.Products.Where(u => u.Manufacturer == filterUserComboBox.SelectedValue).ToList();
-                }
-                else
-                {
-                    productlistView.ItemsSource = db.Products.ToList();
-                }
-            }
+            UpdateProducts();
         }
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            UpdateProducts();
+        }
+        private void UpdateProducts()
+        {
             using (SportStoreContext db = new SportStoreContext())
             {
-                if (searchBox.Text.Length > 0)
+                var currentProducts = db.Products.ToList();
+                productlistView.ItemsSource = currentProducts;
+
+                //Сортировка
+                if (sortUserComboBox.SelectedIndex != -1)
                 {
-                    productlistView.ItemsSource = db.Products.Where(u => u.Name.Contains(searchBox.Text) || u.Description.Contains(searchBox.Text)).ToList();
+                    if (sortUserComboBox.SelectedValue == "По убыванию цены")
+                    {
+                        currentProducts = currentProducts.OrderByDescending(u => u.Cost).ToList();
+                    }
+
+                    if (sortUserComboBox.SelectedValue == "По возрастанию цены")
+                    {
+                        currentProducts = currentProducts.OrderBy(u => u.Cost).ToList();
+                    }
                 }
 
+                // Фильтрация
+                if (filterUserComboBox.SelectedIndex != -1)
+                {
+                    if (db.Products.Select(u => u.Manufacturer).Distinct().ToList().Contains(filterUserComboBox.SelectedValue))
+                    {
+                        currentProducts = currentProducts.Where(u => u.Manufacturer == filterUserComboBox.SelectedValue.ToString()).ToList();
+                    }
+                    else
+                    {
+                        currentProducts = currentProducts.ToList();
+                    }
+                }
+
+                // Поиск
+
+                if (searchBox.Text.Length > 0)
+                {
+                    currentProducts = currentProducts.Where(u => u.Name.Contains(searchBox.Text) || u.Description.Contains(searchBox.Text)).ToList();
+                }
+                productlistView.ItemsSource = currentProducts;
+
+                countProducts.Text = $"Количество: {currentProducts.Count} из {db.Products.ToList().Count}";
             }
         }
     }

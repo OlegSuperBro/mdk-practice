@@ -35,6 +35,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
 
 
             </Grid.ColumnDefinitions>
@@ -70,10 +71,21 @@
                          TextChanged="searchBox_TextChanged" />
             </StackPanel>
 
-            <StackPanel 
+            <StackPanel Margin="1"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Grid.Column="4">
+                <TextBlock Margin="1"
+                           TextAlignment="Left"
+                           Name="countProducts"
+                           Height="40" Width="150"
+                           Text="Количество: "/>
+            </StackPanel>
+
+            <StackPanel 
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Grid.Column="5">
 
                 <TextBlock Name="statusUser" Margin="1" Text="Роль: Иванов Иван Иванович" Height="20" Width="200" TextAlignment="Center"/>
                 <Button Margin="1" Content="Выход" Height="20" Width="100"
@@ -104,7 +116,7 @@
 			                       HorizontalAlignment="Center"
 			                       Height="200"
 			                       Width="200"
-                                               ToolTip="{Binding Description}">
+                                   ToolTip="{Binding Description}">
 
                                 <Image.Source>
                                     <BitmapImage UriSource = "{Binding ImagePath}" CacheOption="OnLoad">

@@ -41,6 +41,15 @@
                 <Image Source="Resources/logo.png" Height="100" Width="100"/>
             </StackPanel>
 
+            <StackPanel
+                        Margin="1"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left">
+                <TextBlock Margin="1" Text="Сортировка" Height="20" Width="100"/>
+                <ComboBox Margin="1" Name="sortUserComboBox" Height="20" Width="150" SelectionChanged="sortUserComboBox_SelectionChanged"/>
+            </StackPanel>
+
             <StackPanel 
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right"

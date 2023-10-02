@@ -69,13 +69,29 @@
                 <DataTemplate>
                     <StackPanel Width="300">
 
-                        <TextBlock Text="{Binding Name}"
+                        <Border BorderBrush="#FF498C51" BorderThickness="2">
+                            <Image 
+			                       HorizontalAlignment="Center"
+			                       Height="200"
+			                       Width="200"
+                                               ToolTip="{Binding Description}">
+
+                                <Image.Source>
+                                    <BitmapImage UriSource = "{Binding ImagePath}" CacheOption="OnLoad">
+                                    </BitmapImage>
+                                </Image.Source>
+                            </Image>
+                        </Border>
+
+                        <TextBlock 
+                                  Text="{Binding Name, StringFormat=Название: {0}}"
 				                  VerticalAlignment="Center"
 				                  TextAlignment="Center"
 				                  TextWrapping="Wrap"
 				                  HorizontalAlignment="Center"
 				                  Margin="0"
                                   FontSize="15"/>
+
                     </StackPanel>
 
                 </DataTemplate>

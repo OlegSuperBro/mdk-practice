@@ -145,9 +145,11 @@
 
         </ListView>
 
-        <StackPanel Grid.Row="2"
+        <StackPanel Name="adminButtons"
+                    Grid.Row="2"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Center"
+                    Visibility="Hidden">
             <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
 
@@ -155,7 +157,14 @@
                         Content="Добавить товар" Height="20" Width="100"
                         Click="addUserButtonClick"/>
             </StackPanel>
-
+            <StackPanel>
+                <Button Name="deleteUser"
+                        Margin="5"
+                        Content="Удалить товар"
+                        Height="20"
+                        Width="100"
+                        Click="delUserButton"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

@@ -28,6 +28,8 @@ public partial class SportStoreContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<RelatedProduct> RelatedProducts { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["ConnectionLocalDb"].ToString());
 

@@ -11,6 +11,8 @@ public partial class Product
 
     public string Name { get; set; } = null!;
 
+    public string Unit { get; set; } = null!;
+
     public string Description { get; set; } = null!;
 
     public string Category { get; set; } = null!;
@@ -19,9 +21,11 @@ public partial class Product
 
     public string Manufacturer { get; set; } = null!;
 
+    public string Supplier {  get; set; } = null!;
+
     public decimal Cost { get; set; }
 
-    public byte? DiscountAmount { get; set; }
+    public decimal DiscountAmount { get; set; }
 
     public int QuantityInStock { get; set; }
 

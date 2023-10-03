@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SportStore.Models;
+using SportStore.Resources;
 
 namespace SportStore
 {
@@ -116,6 +117,11 @@ namespace SportStore
             searchBox.Text = "";
             sortUserComboBox.SelectedIndex = -1;
             filterUserComboBox.SelectedIndex = -1;
+        }
+
+        private void addUserButtonClick(object sender, RoutedEventArgs e)
+        {
+            new AddProductWindow().ShowDialog();
         }
     }
 }

@@ -101,7 +101,8 @@
                 Grid.Row ="1"
 	            x:Name="productlistView"
 	            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                HorizontalContentAlignment="Center">
+                HorizontalContentAlignment="Center"
+                MouseDoubleClick="EditProduct_MouseDoubleClick">
 
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>

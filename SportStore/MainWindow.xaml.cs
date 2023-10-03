@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SportStore.Models;
 using SportStore.Resources;
 
@@ -121,7 +122,13 @@ namespace SportStore
 
         private void addUserButtonClick(object sender, RoutedEventArgs e)
         {
-            new AddProductWindow().ShowDialog();
+            new AddProductWindow(null).ShowDialog();
+
+        }
+        private void EditProduct_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Product p = (sender as ListView).SelectedItem as Product;
+            new AddProductWindow(p).ShowDialog();
         }
     }
 }

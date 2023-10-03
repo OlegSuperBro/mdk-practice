@@ -25,7 +25,9 @@ public partial class Product
 
     public decimal Cost { get; set; }
 
-    public decimal DiscountAmount { get; set; }
+    public decimal? MaxDiscount { get; set; }
+
+    public decimal? DiscountAmount { get; set; }
 
     public int QuantityInStock { get; set; }
 
